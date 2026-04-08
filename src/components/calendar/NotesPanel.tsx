@@ -10,6 +10,7 @@ interface NotesPanelProps {
   rangeEnd: Date | null;
   onAddNote: (text: string) => void;
   onDeleteNote: (id: string) => void;
+  onNoteClick: (date: Date) => void;
 }
 
 export default function NotesPanel({
@@ -18,6 +19,7 @@ export default function NotesPanel({
   rangeEnd,
   onAddNote,
   onDeleteNote,
+  onNoteClick,
 }: NotesPanelProps) {
   const [text, setText] = useState("");
 
@@ -106,7 +108,8 @@ export default function NotesPanel({
             return (
               <div
                 key={note.id}
-                className="group flex items-start gap-3 p-3 rounded-lg bg-card card-shadow slide-down"
+                onClick={() => onNoteClick(start)}
+                className="group flex items-start gap-3 p-3 rounded-lg bg-card card-shadow slide-down cursor-pointer hover:bg-card/80 transition-colors"
               >
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-foreground leading-relaxed">
@@ -115,7 +118,10 @@ export default function NotesPanel({
                   <p className="text-xs text-muted-foreground mt-1">{label}</p>
                 </div>
                 <button
-                  onClick={() => onDeleteNote(note.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeleteNote(note.id);
+                  }}
                   className="p-1 rounded opacity-0 group-hover:opacity-100 hover:bg-destructive/10 transition-all"
                   aria-label="Delete note"
                 >

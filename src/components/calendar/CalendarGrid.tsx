@@ -28,6 +28,7 @@ interface CalendarGridProps {
   notes: CalendarNote[];
   isFullscreen: boolean;
   onToggleFullscreen: () => void;
+  onGoToToday: () => void;
 }
 
 export default function CalendarGrid({
@@ -39,6 +40,7 @@ export default function CalendarGrid({
   notes,
   isFullscreen,
   onToggleFullscreen,
+  onGoToToday,
 }: CalendarGridProps) {
   const [hoveredDay, setHoveredDay] = useState<Date | null>(null);
   const [flipKey, setFlipKey] = useState(0);
@@ -72,9 +74,18 @@ export default function CalendarGrid({
         >
           <ChevronLeft className="w-5 h-5 text-muted-foreground" />
         </button>
-        <h2 className="text-2xl font-heading font-semibold text-foreground tracking-wide">
-          {format(currentMonth, "MMMM yyyy")}
-        </h2>
+        <div className="flex items-center gap-4">
+          <h2 className="text-2xl font-heading font-semibold text-foreground tracking-wide">
+            {format(currentMonth, "MMMM yyyy")}
+          </h2>
+          <button
+            onClick={onGoToToday}
+            className="px-3 py-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+            aria-label="Go to today"
+          >
+            Today
+          </button>
+        </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate(1)}

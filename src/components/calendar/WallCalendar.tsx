@@ -84,6 +84,14 @@ export default function WallCalendar() {
     }
   }, []);
 
+  const goToToday = useCallback(() => {
+    setCurrentMonth(new Date());
+  }, []);
+
+  const goToDate = useCallback((date: Date) => {
+    setCurrentMonth(new Date(date.getFullYear(), date.getMonth(), 1));
+  }, []);
+
   return (
     <div className="min-h-screen bg-background p-4 lg:p-8">
       <div className="max-w-7xl mx-auto">
@@ -105,6 +113,7 @@ export default function WallCalendar() {
               notes={notes}
               isFullscreen={isFullscreen}
               onToggleFullscreen={toggleFullscreen}
+              onGoToToday={goToToday}
             />
           </div>
 
@@ -116,6 +125,7 @@ export default function WallCalendar() {
               rangeEnd={rangeEnd}
               onAddNote={handleAddNote}
               onDeleteNote={handleDeleteNote}
+              onNoteClick={goToDate}
             />
           </div>
         </div>
