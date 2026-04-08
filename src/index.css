@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 97%;
+    --foreground: 30 10% 15%;
+
+    --card: 40 30% 99%;
+    --card-foreground: 30 10% 15%;
+
+    --popover: 40 30% 99%;
+    --popover-foreground: 30 10% 15%;
+
+    --primary: 16 65% 55%;
+    --primary-foreground: 40 33% 97%;
+
+    --secondary: 40 20% 92%;
+    --secondary-foreground: 30 10% 25%;
+
+    --muted: 40 15% 94%;
+    --muted-foreground: 30 8% 50%;
+
+    --accent: 40 30% 88%;
+    --accent-foreground: 30 10% 20%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 16 65% 55%;
+
+    --radius: 0.5rem;
+
+    --calendar-range: 16 65% 55%;
+    --calendar-range-bg: 16 40% 94%;
+    --calendar-hover: 35 30% 92%;
+    --calendar-today: 16 65% 55%;
+    --calendar-holiday: 0 70% 58%;
+    --calendar-weekend: 30 8% 55%;
+    --calendar-note-indicator: 200 60% 50%;
+
+    --hero-overlay: 30 20% 10%;
+    --notes-bg: 45 40% 96%;
+
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+
+    --shadow-calendar: 0 4px 24px -4px hsl(30 20% 10% / 0.08);
+    --shadow-card: 0 1px 3px hsl(30 20% 10% / 0.06);
+    --shadow-elevated: 0 8px 40px -8px hsl(30 20% 10% / 0.12);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 30 10% 8%;
+    --foreground: 40 20% 90%;
+
+    --card: 30 10% 11%;
+    --card-foreground: 40 20% 90%;
+
+    --popover: 30 10% 11%;
+    --popover-foreground: 40 20% 90%;
+
+    --primary: 16 65% 55%;
+    --primary-foreground: 40 33% 97%;
+
+    --secondary: 30 10% 16%;
+    --secondary-foreground: 40 20% 85%;
+
+    --muted: 30 10% 16%;
+    --muted-foreground: 30 8% 55%;
+
+    --accent: 30 10% 20%;
+    --accent-foreground: 40 20% 90%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 30 10% 20%;
+    --input: 30 10% 20%;
+    --ring: 16 65% 55%;
+
+    --calendar-range: 16 65% 55%;
+    --calendar-range-bg: 16 30% 18%;
+    --calendar-hover: 30 10% 18%;
+    --calendar-today: 16 65% 55%;
+    --calendar-holiday: 0 70% 50%;
+    --calendar-weekend: 30 8% 50%;
+    --calendar-note-indicator: 200 60% 45%;
+
+    --hero-overlay: 30 20% 5%;
+    --notes-bg: 30 10% 12%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer utilities {
+  .calendar-shadow {
+    box-shadow: var(--shadow-calendar);
+  }
+
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+
+  .elevated-shadow {
+    box-shadow: var(--shadow-elevated);
+  }
+}
+
+@layer components {
+  .day-cell-transition {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .calendar-flip {
+    animation: flipIn 0.4s ease-out;
+  }
+
+  @keyframes flipIn {
+    0% {
+      transform: rotateX(-90deg);
+      opacity: 0;
+    }
+    60% {
+      transform: rotateX(10deg);
+    }
+    100% {
+      transform: rotateX(0deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
+    }
+  }
+
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+}
